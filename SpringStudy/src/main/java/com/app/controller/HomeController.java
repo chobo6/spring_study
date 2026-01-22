@@ -14,5 +14,7 @@ public class HomeController {
 
 		//--ViewResolver 설정 이후
 		return "home";
+		//return "mainpage";
 	}
+		
 }
