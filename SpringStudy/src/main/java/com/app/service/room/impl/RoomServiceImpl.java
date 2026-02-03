@@ -39,4 +39,13 @@ public class RoomServiceImpl implements RoomService {
 		return roomList;
 	}
 
+	@Override
+	public int saveRoom(Room room) {
+
+		// 매개변수 room -> DAO 전달 -> 저장해라~
+		int result = roomDAO.saveRoom(room);
+		
+		return result;
+	}
+
 }
