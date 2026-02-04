@@ -14,4 +14,9 @@
 		)
 	</insert>
 
+	<select id="findUserList" resultType="User">
+		SELECT *
+		FROM T_USER
+		ORDER BY id
+	</select>
 </mapper>
