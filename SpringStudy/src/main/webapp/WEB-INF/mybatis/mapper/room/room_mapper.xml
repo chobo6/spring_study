@@ -17,5 +17,9 @@
 		)
 	</insert>
 
-
+	<select id="findRoomList" resultType="Room">
+		SELECT *
+		FROM T_ROOM
+		ORDER BY room_id
+	</select>
 </mapper>

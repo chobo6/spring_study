@@ -27,8 +27,9 @@ public class RoomDAOImpl implements RoomDAO {
 		System.out.println("[DAO] 호출 findRoomList");
 		
 		// DB 에 연동 -> room 테이블 데이터 조회 -> List
+		List<Room> roomList = sqlSessionTemplate.selectList("room_mapper.findRoomList");
 		
-		return null;
+		return roomList;
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public class RoomDAOImpl implements RoomDAO {
 							// 실행할 쿼리가 위치한 식별자 , 매개변수
 							// namespace.id
 		int result = sqlSessionTemplate.insert("room_mapper.saveRoom", room);
+		
 		return result;
 	}
 
