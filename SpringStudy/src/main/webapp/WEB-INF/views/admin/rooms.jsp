@@ -13,12 +13,15 @@
 
 	<c:forEach var="room" items="${roomList}">
 		<p>
+			<a href="/admin/room/${room.roomId}">
 			${room.roomId} ${room.buildingName} ${room.roomNumber} ${room.floor} ${room.maxGuestCount}
+			
 			<c:choose>
 				<c:when test="${room.viewType eq 'OCN'}">오션뷰</c:when>
 				<c:when test="${room.viewType eq 'CTY'}">시티뷰</c:when>
 				<c:when test="${room.viewType eq 'MOT'}">마운틴뷰</c:when>
 			</c:choose>
+			</a>
 		</p>
 	</c:forEach>	
 </body>

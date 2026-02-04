@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.dto.room.Room;
@@ -63,6 +64,24 @@ public class AdminController {
 		return "admin/rooms";
 	}
 	
+	// 객실 개별 상세 페이지 조회
+//	@GetMapping("/admin/room?roomId=1")
+	@GetMapping("/admin/room/{roomId}")
+	public String room(@PathVariable String roomId, Model model) {
+		
+		Room room = roomService.findRoomByRoomId(Integer.parseInt(roomId));
+		model.addAttribute("room", room);
+		
+		if(room == null) { // roomId에 해당하는 정보가 없다
+			// 조회할 정보가 없을 때 보여줄 페이지
+		}
+		
+		return "admin/room";
+		
+	}
+	
+	
+	// 관리자가 사용자 계정 관리 -> 사용자 계정 추가
 	@GetMapping("admin/users/add")
 	public String addUser() {
 		return "admin/addUser";
