@@ -28,4 +28,9 @@
 		FROM T_ROOM
 		WHERE room_id = #{roomId}
 	</select>
+	
+	<delete id="removeRoom" parameterType="int">
+		DELETE FROM T_ROOM
+		WHERE room_id = #{roomId}
+	</delete>
 </mapper>
