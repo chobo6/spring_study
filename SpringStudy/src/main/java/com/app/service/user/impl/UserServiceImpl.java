@@ -65,7 +65,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User checkUserLogin(User user) {
-
+		
+		/*
+		// 케이스 1) DB에서 user 정보 조회 -> 서비스 계층에서 상태를 비교하는 로직 수행
+		
 		//id pw 일치하나?
 		
 		// 사용자가 입력한 id pw -> User user
@@ -87,10 +90,16 @@ public class UserServiceImpl implements UserService {
 		
 		//아니면?   //로그인 실패면 null return
 		return null;
+		*/
 		
 		/*
 			String 의미가 담긴 코드 (SUC, FAL, LCK)
 			int 1:성공 2:실패 3:휴면 4:신고 ...
 		 */
+		
+		// 케이스 2) DB 쿼리상에서 정보 일치여부 판단 수행
+		User loginUser = userDAO.checkUserLogin(user);
+		
+		return loginUser; // 조회 O -> user 객체, 조회 X -> null
 	}
 }
