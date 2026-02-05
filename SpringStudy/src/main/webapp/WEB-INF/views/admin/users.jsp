@@ -20,5 +20,7 @@
 			</c:choose>
 		</p>
 	</c:forEach>
+	
+	<button type="button" onclick="location.href='/main'">메인으로</button>
 </body>
 </html>

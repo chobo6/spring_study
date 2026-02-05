@@ -13,4 +13,10 @@ public class MainController {
 		
 		return "main";
 	}
+	
+	@RequestMapping({"/", "/home", "/root"})
+	public String root() {
+		// return "main";
+		return "redirect:/main";
+	}
 }
