@@ -11,9 +11,16 @@
 	<h1>여기는 main 페이지입니다.</h1>
 
 	<div>
-		<button type="button" onClick="location.href='/customer/signup'">회원가입하기</button>
+		<c:if test="${empty loginUserId}">
+			<button type="button" onClick="location.href='/customer/signup'">회원가입하기</button>
+			<button type="button" onClick="location.href='/customer/signin'">로그인</button>
+		</c:if>
 		
-		<button type="button" onClick="location.href='/customer/signin'">로그인</button>
+		<c:if test="${!empty loginUserId}">
+			<p>${loginUserId} 님 환영합니다!</p>
+			<button type="button" onClick="location.href='/customer/signout'">로그아웃</button>
+			<button type="button" onClick="location.href='/customer/mypage'">마이페이지</button>
+		</c:if>
 	</div>
 </body>
 </html>

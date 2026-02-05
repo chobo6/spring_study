@@ -80,4 +80,35 @@ public class CustomerController {
 		//로그인 실패 -> 로그인 시도 화면
 	}
 	
+	@GetMapping("/customer/mypage")
+	public String mypage(HttpSession session, Model model) {
+		
+		// 로그인을 한 상태면? -> session 에 로그인 사용자 아이디가 존재
+		
+		if(session.getAttribute("loginUserId") != null) {
+			
+			//								session 에서 로그인 사용자 ID 확인
+			String loginUserId = session.getAttribute("loginUserId").toString();
+			
+			// DB에서 user 데이터 조회
+			User user = userSerivce.findUserById(loginUserId);
+			
+			// view 데이터 전달
+			model.addAttribute("user", user);
+			
+			return "customer/mypage";
+		}
+		
+		// 로그인 안되어있으면? -> 로그인 페이지로 연결
+		return "redirect:/customer/signin";
+	}
+	
+	@GetMapping("/customer/signout")
+	public String signout(HttpSession session) {
+		
+		// 세션 초기화
+		session.invalidate();
+		
+		return "redirect:/main";
+	}
 }
