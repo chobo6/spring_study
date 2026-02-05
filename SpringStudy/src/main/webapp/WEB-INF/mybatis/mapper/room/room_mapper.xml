@@ -33,4 +33,15 @@
 		DELETE FROM T_ROOM
 		WHERE room_id = #{roomId}
 	</delete>
+	
+	<update id="modifyRoom" parameterType="Room">
+		UPDATE T_ROOM
+		SET 
+			BUILDING_NAME = #{buildingName},
+			ROOM_NUMBER =  #{roomNumber},
+			FLOOR =  #{floor},
+			MAX_GUEST_COUNT = #{maxGuestCount},
+			VIEW_TYPE = #{viewType}
+		WHERE ROOM_ID = #{roomId}
+	</update>
 </mapper>

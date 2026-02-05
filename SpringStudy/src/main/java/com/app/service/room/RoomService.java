@@ -5,6 +5,7 @@ import java.util.List;
 import com.app.dto.room.Room;
 
 public interface RoomService {
+	
 	List<Room> findRoomList();
 	
 	int saveRoom(Room room);
@@ -12,4 +13,7 @@ public interface RoomService {
 	Room findRoomByRoomId(int roomId);
 	
 	int removeRoom(int roomId);
+	
+	int modifyRoom(Room room);
+
 }

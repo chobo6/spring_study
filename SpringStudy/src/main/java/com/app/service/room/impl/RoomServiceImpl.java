@@ -12,30 +12,30 @@ import com.app.service.room.RoomService;
 @Service
 public class RoomServiceImpl implements RoomService {
 
-	@Autowired //자동 주입
+	@Autowired // 자동 주입
 	RoomDAO roomDAO;
-	
-	//생성자를 통한 의존성 주입
+
+	// 생성자를 통한 의존성 주입
 //	public RoomServiceImpl(RoomDAO roomDAO) {
 //		this.roomDAO = roomDAO;
 //	}
-	
-	//setter 메소드를 통한 의존성 주입
+
+	// setter 메소드를 통한 의존성 주입
 //	public void setRoomDAO(RoomDAO roomDAO) {
 //		this.roomDAO = roomDAO;
 //	}
-	
+
 	@Override
 	public List<Room> findRoomList() {
 
 		System.out.println("[Service] 호출 findRoomList");
-		
-		//서비스 로직 
+
+		// 서비스 로직
 		// ...
-		
+
 		// DAO 활용 -> 실제 데이터 조회
 		List<Room> roomList = roomDAO.findRoomList();
-		
+
 		return roomList;
 	}
 
@@ -44,7 +44,7 @@ public class RoomServiceImpl implements RoomService {
 
 		// 매개변수 room -> DAO 전달 -> 저장해라~
 		int result = roomDAO.saveRoom(room);
-		
+
 		return result;
 	}
 
@@ -52,7 +52,7 @@ public class RoomServiceImpl implements RoomService {
 	public Room findRoomByRoomId(int roomId) {
 
 		Room room = roomDAO.findRoomByRoomId(roomId);
-		
+
 		return room;
 	}
 
@@ -60,7 +60,15 @@ public class RoomServiceImpl implements RoomService {
 	public int removeRoom(int roomId) {
 
 		int result = roomDAO.removeRoom(roomId);
+
+		return result;
+	}
+
+	@Override
+	public int modifyRoom(Room room) {
 		
+		int result = roomDAO.modifyRoom(room);
+
 		return result;
 	}
 
