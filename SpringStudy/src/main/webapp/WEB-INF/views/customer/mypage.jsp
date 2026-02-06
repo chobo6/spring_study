@@ -11,6 +11,7 @@
 	
 	<p>아이디 : ${user.id}</p>
 	<p>이름 : ${user.name}</p>
+	<button type="button" onclick="location.href='/customer/modifyPw'">비밀번호 변경</button>
 	<p>
 		<a href="/main">메인페이지로 이동</a>
 	</p>

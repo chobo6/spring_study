@@ -2,6 +2,7 @@ package com.app.service.user;
 
 import java.util.List;
 
+import com.app.dto.room.Room;
 import com.app.dto.user.User;
 
 public interface UserService {
@@ -15,4 +16,8 @@ public interface UserService {
 
 	public User findUserById(String id);
 	public User checkUserLogin(User user);
+	
+	public int modifyUser(User user);
+	
+	public int modifyUserPw(User user);
 }
