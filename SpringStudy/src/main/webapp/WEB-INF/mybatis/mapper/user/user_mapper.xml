@@ -48,4 +48,45 @@
 		WHERE ID = #{id}
 	</update>
 	
+	<select id="findUserListBySearchCondition" resultType="User" parameterType="UserSearchCondition">
+		SELECT *
+		FROM T_USER
+		<where>
+			<if test="name != null and name != ''">
+				AND name LIKE '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="id != null and id != ''">
+				AND id LIKE '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="userType != null and userType != ''">
+				AND user_type LIKE '%' || #{userType} || '%'
+			</if>
+		</where>
+			
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE -->
+<!-- 			1=2 -->
+<!-- 			<if test="name != null and name != ''"> -->
+<!-- 				OR name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != ''"> -->
+<!-- 				OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+			
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE -->
+<!-- 			1=1 -->
+<!-- 			<if test="name != null and name != ''"> -->
+<!-- 				AND name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != ''"> -->
+<!-- 				AND id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="userType != null and userType != ''"> -->
+<!-- 				AND user_type LIKE '%' || #{userType} || '%' -->
+<!-- 			</if> -->
+	</select>
+	
 </mapper>
