@@ -15,6 +15,21 @@
 	<br>
 	<br>
 
+	<div>
+		<form action="" method="get">
+			<p>검색기준</p>
+			<label><input type="radio" name="viewType" value="OCN" <c:if test="${roomSearchCondition.viewType == 'OCN'}">checked</c:if> >오션뷰</label>
+			<label><input type="radio" name="viewType" value="CTY" <c:if test="${roomSearchCondition.viewType == 'CTY'}">checked</c:if>>시티뷰</label>
+			<label><input type="radio" name="viewType" value="MOT" <c:if test="${roomSearchCondition.viewType == 'MOT'}">checked</c:if>>마운틴뷰</label>
+			<br>
+			
+			<label>검색어 : <input type="text" name="searchKeyword" value="${roomSearchCondition.searchKeyword}"></label>
+			<button type="submit">검색</button>	
+		</form>
+	</div>
+	
+	<hr>
+	
 	<c:forEach var="room" items="${roomList}">
 		<p>
 			<a href="/admin/room/${room.roomId}">

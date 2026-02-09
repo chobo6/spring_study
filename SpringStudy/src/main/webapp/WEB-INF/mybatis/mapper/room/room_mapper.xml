@@ -44,4 +44,19 @@
 			VIEW_TYPE = #{viewType}
 		WHERE ROOM_ID = #{roomId}
 	</update>
+	
+	<select id="findRoomListBySearchCondition" resultType="Room" parameterType="RoomSearchCondition">
+		SELECT *
+		FROM T_ROOM
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				building_name LIKE '%' || #{searchKeyword} || '%' 
+			</if>
+			<if test="viewType != null and viewType != ''">
+				AND view_type = #{viewType}
+			</if>
+		</where>
+		ORDER BY room_id
+	</select>
+	
 </mapper>
