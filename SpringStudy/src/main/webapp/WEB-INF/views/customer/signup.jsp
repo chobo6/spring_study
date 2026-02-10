@@ -1,21 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.error-msg {
+		color : red;
+	}
+</style>
 </head>
 <body>
 	<h1>sign up 페이지</h1>
 
 	<form action="" method="post">
-		사용자 아이디 : <input type="text" name="id" id="inputId">
+		사용자 아이디 : <input type="text" name="id" id="inputId" value="${user.id}">
+		
+		<spring:hasBindErrors name="user">
+			<c:if test="${errors.hasFieldErrors('id')}">
+				<p class="error-msg">아이디 필수 입력입니다.</p>
+				<p class="error-msg">${errors.getFieldError('id').defaultMessage}</p>
+			</c:if>
+		</spring:hasBindErrors>
+		
 		<button type="button" id="btn_checkDupId">중복체크</button>
 		<p id="checkDupIdMsg"></p>
 		
-		사용자 이름 : <input type="text" name="name"><br>
+		사용자 이름 : <input type="text" name="name" value="${user.name}"><br>
 		사용자 비밀번호 : <input type="password" name="pw"><br>
+		
+		<spring:hasBindErrors name="user">
+			<c:if test="${errors.hasFieldErrors('pw')}">
+				<p class="error-msg">비밀번호 길이 확인</p>
+				<p class="error-msg">${errors.getFieldError('pw').defaultMessage}</p>
+			</c:if>
+		</spring:hasBindErrors>
 		
 		<button type="submit">가입하기</button>
 	</form>
