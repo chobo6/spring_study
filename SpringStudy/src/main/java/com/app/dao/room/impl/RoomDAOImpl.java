@@ -10,10 +10,14 @@ import com.app.dao.room.RoomDAO;
 import com.app.dto.room.Room;
 import com.app.dto.room.RoomSearchCondition;
 
+import lombok.extern.slf4j.Slf4j;
+
 // 데이터소스와 연결/통신하는 역할
 // DAO  Repository
 // DB 연동 -> DAO
 // 외부 API -> Repository
+
+@Slf4j
 @Repository
 public class RoomDAOImpl implements RoomDAO {
 
@@ -47,7 +51,14 @@ public class RoomDAOImpl implements RoomDAO {
 	@Override
 	public Room findRoomByRoomId(int roomId) {
 
-		Room room = sqlSessionTemplate.selectOne("room_mapper.findRoomByRoomId", roomId);
+		Room room = null;
+		
+		try{
+			room = sqlSessionTemplate.selectOne("room_mapper.findRoomByRoomId", roomId);
+		} catch (Exception e) {
+			log.warn(e.getMessage());
+			log.error(e.getMessage());
+		}
 
 		return room;
 	}

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ import com.app.dto.user.UserSearchCondition;
 import com.app.service.room.RoomService;
 import com.app.service.user.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class AdminController {
 	// 관리자 접근 페이지 (판매측 사용자) or (전체 관리자)
@@ -29,8 +34,19 @@ public class AdminController {
 	@Autowired
 	UserService userService;
 	
+//	private static final Logger log = LogManager.getLogger(AdminController.class);
 	@GetMapping("/admin/registerRoom")
 	public String registerRoom() {
+		
+		System.out.println("이것은 println");
+		log.info("log level info 기록");
+		log.error("심각한 에러가 발생해서 이건 보완해야함.");
+		log.debug("debug level 문을 열고 들어왔다.");
+		
+		log.trace("trace level 문을 열었다.");
+		log.trace("trace level 오른손으로 위에서 아래로 손잡이를 눌렀다.");
+		log.trace("trace level 오른발 먼저 해서 들어왔다.");
+		
 		return "admin/registerRoom";
 	}
 	

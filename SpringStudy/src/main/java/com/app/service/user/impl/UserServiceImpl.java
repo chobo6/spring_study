@@ -11,6 +11,9 @@ import com.app.dto.user.User;
 import com.app.dto.user.UserSearchCondition;
 import com.app.service.user.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -44,6 +47,8 @@ public class UserServiceImpl implements UserService {
 		user.setUserType(CommonCode.USER_USERTYPE_ADMIN);
 		
 		int result = userDAO.saveUser(user);
+		
+		log.info("관리자 계정 추가 됨 {}", user);
 		
 		return result;
 	}

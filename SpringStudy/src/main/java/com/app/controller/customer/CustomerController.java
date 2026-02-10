@@ -2,6 +2,8 @@ package com.app.controller.customer;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ import com.app.dto.user.UserDupCheck;
 import com.app.service.user.UserService;
 import com.app.util.LoginManager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class CustomerController {
 	// 고객 사용자 관련된 서비스 (계정 관련...)
@@ -26,8 +31,12 @@ public class CustomerController {
 	@Autowired
 	UserService userSerivce;
 
+//	private static final Logger log = LogManager.getLogger(CustomerController.class);
+
 	@GetMapping("/customer/signup")
 	public String signup() {
+		
+		log.info("singup 페이지 접근함.");
 		return "customer/signup";
 	}
 
@@ -70,8 +79,10 @@ public class CustomerController {
 	public ApiResponse<String> checkDupId(@RequestBody UserDupCheck userDupCheck) {
 							// 요청 body 데이터에 json format text 가 담겨져있는 경우
 							// key 값 == 필드변수	자동으로 객체로 파싱되어 데이터가 담김
-		System.out.println("/customer/checkDupId");
+		System.out.println("/customer/checkDupIdJson");
 		System.out.println(userDupCheck);
+		
+		log.info("checkDupIdJson 아이디 중복체크 요청 값 {}", userDupCheck);
 		
 		// data = 중복인지 체크할 아이디
 		// -> db 에서 중복된 사용자 아이디 있는지 체크
