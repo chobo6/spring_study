@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style></style>
+<!-- 	<link href="../../resources/css/main.css" rel="stylesheet"> -->
+	<link href="/css/main.css" rel="stylesheet">
 </head>
 <body>
 	<h1>여기는 main 페이지입니다.</h1>
@@ -22,5 +25,10 @@
 			<button type="button" onClick="location.href='/customer/mypage'">마이페이지</button>
 		</c:if>
 	</div>
+	
+	<img src="/images/gh.png">
+	
+	<script></script>
+	<script src="/js/main.js"></script>
 </body>
 </html>
