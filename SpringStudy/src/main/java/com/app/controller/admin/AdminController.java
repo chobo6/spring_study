@@ -174,6 +174,18 @@ public class AdminController {
 		// user 정보를 DB에 저장
 		System.out.println(user);
 		
+		// 서버 측에서 Insert 처리 전에 유효성 검증
+		if(user.getId() == null || user.getId().trim().equals("")) {
+			// 입력 제대로 안함 -> 유효성 검증 필터에 걸림
+			log.info("아이디 유효성 검증 필터링 됨");
+			return "admin/addUser";
+		}
+		
+		if(user.getId().length() < 4 || user.getId().length() > 15) {
+			log.info("아이디 유효성 검증 길이 안맞음 : {}", user.getId());
+			return "admin/addUser";
+		}
+		
 		// 관리자가 사용자 계정을 추가
 		// 사용자 계정 -> userType 값은 "CUS" 코드로 저장되어야 한다.
 		
