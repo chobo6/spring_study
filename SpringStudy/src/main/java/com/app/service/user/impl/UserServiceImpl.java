@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.app.common.CommonCode;
 import com.app.dao.user.UserDAO;
 import com.app.dto.user.User;
+import com.app.dto.user.UserProfileImage;
 import com.app.dto.user.UserSearchCondition;
 import com.app.service.user.UserService;
 
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+
 	@Autowired
 	UserDAO userDAO;
 
@@ -29,10 +31,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int saveCustomerUser(User user) {
-		// 사용자 계정 추가 시 사용하는 메소드
+		// 사용자 계정 추가시 사용하는 메소드
 		// 사용자 추가 로직
-//		user.setUserType("CUS");
-		user.setUserType(CommonCode.USER_USERTYPE_CUSTOMER);
+		//user.setUserType("CUS");
+		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER );
 		
 		int result = userDAO.saveUser(user);
 
@@ -41,21 +43,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int saveAdminUser(User user) {
-		// 관리자 계정 추가 시 사용하는 메소드
+		// 관리자 계정 추가시 사용하는 메소드
 		// 관리자 추가 로직
-//		user.setUserType("ADM");
-		user.setUserType(CommonCode.USER_USERTYPE_ADMIN);
+		//user.setUserType("ADM");
+		user.setUserType( CommonCode.USER_USERTYPE_ADMIN );
 		
 		int result = userDAO.saveUser(user);
 		
 		log.info("관리자 계정 추가 됨 {}", user);
-		
+
 		return result;
 	}
 
 	@Override
 	public List<User> findUserList() {
-		
+
 		List<User> userList = userDAO.findUserList();
 		
 		return userList;
@@ -63,17 +65,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUserById(String id) {
-		
+
 		User user = userDAO.findUserById(id);
 		
 		return user;
 	}
 
 	@Override
-	public User checkUserLogin(User user) {
-		
+	public User checkUserLogin(User user) {  // user.setUserType("CUS")  "ADM"
+
 		/*
-		// 케이스 1) DB에서 user 정보 조회 -> 서비스 계층에서 상태를 비교하는 로직 수행
+		//케이스 1)  DB에서 user 정보 조회 -> 서비스 계층에서 상태를 비교하는 로직 수행
 		
 		//id pw 일치하나?
 		
@@ -97,24 +99,16 @@ public class UserServiceImpl implements UserService {
 		//아니면?   //로그인 실패면 null return
 		return null;
 		*/
-		
 		/*
 			String 의미가 담긴 코드 (SUC, FAL, LCK)
 			int 1:성공 2:실패 3:휴면 4:신고 ...
 		 */
 		
-		// 케이스 2) DB 쿼리상에서 정보 일치여부 판단 수행
+		
+		// 케이스 2) DB 쿼리상에서, 정보 일치여부 판단 수행
 		User loginUser = userDAO.checkUserLogin(user);
 		
-		return loginUser; // 조회 O -> user 객체, 조회 X -> null
-	}
-
-	@Override
-	public int modifyUser(User user) {
-		
-		int result = userDAO.modifyUser(user);
-		
-		return result;
+		return loginUser;  //조회O -> user객체  조회X -> null
 	}
 
 	@Override
@@ -126,8 +120,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findUserListBySearchCondition(UserSearchCondition userSearchCondition) {
+	public int modifyUser(User user) {
 		
+		int result = userDAO.modifyUser(user);
+		
+		return result;
+	}
+
+	@Override
+	public List<User> findUserListBySearchCondition(UserSearchCondition userSearchCondition) {
+
 		List<User> userList = userDAO.findUserListBySearchCondition(userSearchCondition);
 		
 		return userList;
@@ -135,19 +137,43 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean isDuplicatedId(String id) {
-		// 중복여부 체크 return
+		//중복여부 체크 return
 		
-		// 중복이면 true
-		// 아니면 false
+		//중복? true 
+		//중복아니면? false
 		
-		// 해당 ID가 DB에 이미 있나?
+		//해당 ID가  DB에 이미 있나?
 		User user = userDAO.findUserById(id);
 		
-		if(user == null) { // 아이디 못찾음 return null -> 없음 -> 중복 x
+		if(user == null) { //아이디 못찾음 return null -> 없음 -> 중복XXX 
 			return false;
-		} else { // 아이디 있다 -> PK id 가 이미 있다 -> 중복 o
+		} else { //아이디 있다 -> PK id가 이미 있다 -> 중복 OOO 
 			return true;
 		}
 		
 	}
+
+	@Override
+	public int saveUserProfileImage(UserProfileImage userProfileImage) {
+		
+		int result = userDAO.saveUserProfileImage(userProfileImage);
+		
+		return result;
+	}
+
+	@Override
+	public UserProfileImage findUserProfileImageById(String id) {
+		
+		UserProfileImage userProfileImage = userDAO.findUserProfileImageById(id);
+		
+		return userProfileImage;
+	}
 }
+
+
+
+
+
+
+
+

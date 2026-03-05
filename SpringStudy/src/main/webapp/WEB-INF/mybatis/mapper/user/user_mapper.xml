@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC
 		   "-//mybatis.org//DTD Mapper 3.0//EN" 
 		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		   
-<mapper namespace="user_mapper">
 
+<mapper namespace="user_mapper">
+	
 	<insert id="saveUser" parameterType="User">
 		INSERT INTO T_USER VALUES (
 			#{id},
@@ -13,11 +13,9 @@
 			#{userType}
 		)
 	</insert>
-
+	
 	<select id="findUserList" resultType="User">
-		SELECT *
-		FROM T_USER
-		ORDER BY id
+		SELECT * FROM T_USER
 	</select>
 	
 	<select id="findUserById" resultType="User" parameterType="String">
@@ -34,59 +32,159 @@
 		AND user_type = #{userType}
 	</select>
 	
-	<update id="modifyUser" parameterType="User">
-		UPDATE T_USER
-		SET PW = #{pw},
-			name = #{name},
-			user_type = #{userType}
-		WHERE ID = #{id}
-	</update>
 	
 	<update id="modifyUserPw" parameterType="User">
 		UPDATE T_USER
-		SET PW = #{pw}
-		WHERE ID = #{id}
+		SET pw = #{pw}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="modifyUser" parameterType="User">
+		UPDATE T_USER
+		SET pw = #{pw},
+			name = #{name},
+			user_type = #{userType}
+		WHERE id = #{id}
 	</update>
 	
 	<select id="findUserListBySearchCondition" resultType="User" parameterType="UserSearchCondition">
+		
 		SELECT *
 		FROM T_USER
 		<where>
-			<if test="name != null and name != ''">
-				AND name LIKE '%' || #{searchKeyword} || '%'
-			</if>
-			<if test="id != null and id != ''">
-				AND id LIKE '%' || #{searchKeyword} || '%'
-			</if>
+			<trim prefixOverrides="OR" prefix="(" suffix=")" >			
+				<if test="name != null and name != ''"> 
+					name LIKE '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="id != null and id != ''"> 
+					OR id LIKE '%' || #{searchKeyword} || '%'
+				</if>
+			</trim>
 			<if test="userType != null and userType != ''">
 				AND user_type LIKE '%' || #{userType} || '%'
 			</if>
 		</where>
-			
+		
+		
+		
 <!-- 		SELECT * -->
 <!-- 		FROM T_USER -->
-<!-- 		WHERE -->
-<!-- 			1=2 -->
-<!-- 			<if test="name != null and name != ''"> -->
-<!-- 				OR name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 		<where> -->
+<!-- 			<if test=" (name != null and name != '') or (id != null and id != '')">  -->
+<!-- 			( -->
+<!-- 				<trim prefixOverrides="OR">			 -->
+<!-- 					<if test="name != null and name != ''">  -->
+<!-- 						name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 					</if> -->
+<!-- 					<if test="id != null and id != ''">  -->
+<!-- 						OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 					</if> -->
+<!-- 				</trim> -->
+<!-- 			) -->
+<!-- 				<if test="userType != null and userType != ''"> -->
+<!-- 					AND user_type LIKE '%' || #{userType} || '%' -->
+<!-- 				</if> -->
 <!-- 			</if> -->
-<!-- 			<if test="id != null and id != ''"> -->
-<!-- 				OR id LIKE '%' || #{searchKeyword} || '%' -->
-<!-- 			</if> -->
-			
+<!-- 		</where> -->
+		
+		
+		
 <!-- 		SELECT * -->
 <!-- 		FROM T_USER -->
-<!-- 		WHERE -->
-<!-- 			1=1 -->
-<!-- 			<if test="name != null and name != ''"> -->
+<!-- 		<where> -->
+<!-- 			<if test=" (name != null and name != '') or (id != null and id != '')">  -->
+<!-- 			( -->
+<!-- 				<if test="name != null and name != ''">  -->
+<!-- 					name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 				</if> -->
+<!-- 				<if test="id != null and id != ''">  -->
+<!-- 					<if test="name != null and name != ''">  -->
+<!-- 						OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 					</if> -->
+<!-- 					<if test="name == null or name == ''"> -->
+<!-- 						id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 					</if> -->
+<!-- 				</if> -->
+<!-- 			) -->
+<!-- 				<if test="userType != null and userType != ''"> -->
+<!-- 					AND user_type LIKE '%' || #{userType} || '%' -->
+<!-- 				</if> -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		<where> -->
+<!-- 			<if test="name != null and name != ''">  -->
 <!-- 				AND name LIKE '%' || #{searchKeyword} || '%' -->
 <!-- 			</if> -->
-<!-- 			<if test="id != null and id != ''"> -->
+<!-- 			<if test="id != null and id != ''">  -->
 <!-- 				AND id LIKE '%' || #{searchKeyword} || '%' -->
 <!-- 			</if> -->
 <!-- 			<if test="userType != null and userType != ''"> -->
 <!-- 				AND user_type LIKE '%' || #{userType} || '%' -->
 <!-- 			</if> -->
+<!-- 		</where> -->
+		
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE -->
+<!-- 			1=2 -->
+<!-- 			<if test="name != null and name != ''">  -->
+<!-- 				OR name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != ''">  -->
+<!-- 				OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE -->
+<!-- 			1=1 -->
+<!-- 			<if test="name != null and name != ''">  -->
+<!-- 				AND name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != ''">  -->
+<!-- 				AND id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="userType != null and userType != ''">  -->
+<!-- 				AND user_type LIKE '%' || #{userType} || '%' -->
+<!-- 			</if> -->
+	</select>
+	
+	
+	<insert id="saveUserProfileImage" parameterType="UserProfileImage">
+		INSERT INTO USER_PROFILE_IMAGE
+		VALUES (
+			#{id},
+			#{fileName}
+		)
+	</insert>
+	
+	<select id="findUserProfileImageById" resultType="UserProfileImage" parameterType="String">
+		SELECT *
+		FROM USER_PROFILE_IMAGE
+		WHERE id = #{id}
 	</select>
 	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

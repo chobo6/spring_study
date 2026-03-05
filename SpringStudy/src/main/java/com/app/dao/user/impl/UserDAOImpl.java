@@ -8,13 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import com.app.dao.user.UserDAO;
 import com.app.dto.user.User;
+import com.app.dto.user.UserProfileImage;
 import com.app.dto.user.UserSearchCondition;
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
 
+	
 	@Autowired
-	SqlSessionTemplate sqlSessionTemplate;
+	SqlSessionTemplate sqlSessionTemplate; 
 	
 	@Override
 	public int saveUser(User user) {
@@ -34,7 +36,7 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public User findUserById(String id) {
-		
+
 		User user = sqlSessionTemplate.selectOne("user_mapper.findUserById", id);
 		
 		return user;
@@ -49,15 +51,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public int modifyUser(User user) {
-
-		int result = sqlSessionTemplate.update("user_mapper.modifyUser", user);
-		
-		return result;
-	}
-
-	@Override
-	public int modifyUserPw(User user) {
+	public int modifyUserPw(User user) {	
 		
 		int result = sqlSessionTemplate.update("user_mapper.modifyUserPw", user);
 		
@@ -65,11 +59,36 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public List<User> findUserListBySearchCondition(UserSearchCondition userSearchCondition) {
+	public int modifyUser(User user) {
+		int result = sqlSessionTemplate.update("user_mapper.modifyUser", user);
 		
-		List<User> userList = sqlSessionTemplate.selectList("user_mapper.findUserListBySearchCondition", userSearchCondition);
+		return result;
+	}
+
+	@Override
+	public List<User> findUserListBySearchCondition(UserSearchCondition userSearchCondition) {
+		List<User> userList = sqlSessionTemplate.selectList("user_mapper.findUserListBySearchCondition"
+																, userSearchCondition);
 		
 		return userList;
 	}
+
+	@Override
+	public int saveUserProfileImage(UserProfileImage userProfileImage) {
+		
+		int result = sqlSessionTemplate.insert("user_mapper.saveUserProfileImage", userProfileImage);
+		
+		return result;
+	}
+
+	@Override
+	public UserProfileImage findUserProfileImageById(String id) {
+		
+		UserProfileImage userProfileImage = sqlSessionTemplate.selectOne("user_mapper.findUserProfileImageById", id);
+		
+		return userProfileImage;
+	}
+	
+	
 
 }

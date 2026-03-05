@@ -24,7 +24,9 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		<beans:property name="suffix" value=".jsp"></beans:property>
 	</beans:bean>
 	
+	<resources location="file:///D:/fileStorage/" mapping="/fileStorage/**" />
 	<resources location="/resources/" mapping="/**"></resources>
+
 
 	<annotation-driven>						
 		<message-converters>					
@@ -42,6 +44,14 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		</message-converters>					
 	</annotation-driven>						
 
+	<beans:bean id="multipartResolver"		
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">	
+		<beans:property name="maxUploadSize" value="10485760" />	
+		<beans:property name="defaultEncoding" value="utf-8" />	
+	</beans:bean>		
+	
+
+
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
 <!-- 			<mapping path="/customer/**"/> -->
@@ -54,13 +64,19 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 <!-- 			<exclude-mapping path="/main"/> -->
 <!-- 			<exclude-mapping path="/css/**"/> -->
 <!-- 			<exclude-mapping path="/js/**"/> -->
-<!-- 			<exclude-mapping path="/images/**"/> -->
+<!-- 			<exclude-mapping path="/images/**"/>			 -->	
 <!-- 		</interceptor> -->
 		
 <!-- 		<interceptor> -->
-<!-- 			<mapping path="/admin/**"/> -->
+<!-- 			<mapping path="/admin/**" /> -->
 <!-- 			<exclude-mapping path="/admin/signin"/> -->
 <!-- 			<beans:bean class="com.app.interceptor.AdminInterceptor"></beans:bean> -->
 <!-- 		</interceptor> -->
+		
 <!-- 	</interceptors> -->
+	
+	
+	
+	
+
 </beans:beans>
