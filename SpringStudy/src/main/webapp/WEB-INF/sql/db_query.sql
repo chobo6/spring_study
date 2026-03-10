@@ -31,3 +31,8 @@ CREATE TABLE USER_PROFILE_IMAGE (
     id VARCHAR2(32 BYTE),
     file_name VARCHAR2(256)
 );
+
+--PW 암호화로 인하여, T_USER pw 컬럼 사이즈 변경
+ALTER TABLE T_USER
+MODIFY pw VARCHAR2(64);
+

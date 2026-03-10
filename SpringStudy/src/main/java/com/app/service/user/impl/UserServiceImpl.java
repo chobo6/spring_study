@@ -1,5 +1,6 @@
 package com.app.service.user.impl;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.app.dto.user.User;
 import com.app.dto.user.UserProfileImage;
 import com.app.dto.user.UserSearchCondition;
 import com.app.service.user.UserService;
+import com.app.util.SHA256Encryptor;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +37,18 @@ public class UserServiceImpl implements UserService {
 		// 사용자 추가 로직
 		//user.setUserType("CUS");
 		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER );
+		
+		// 비밀번호 암호화
+		// asdf -> asodifjawoi2390foj23lkj
+		
+		try {
+			String encPw = SHA256Encryptor.encrypt( user.getPw()); //평문 암호화
+			user.setPw(encPw); //암호화된 비밀번호로 세팅
+			System.out.println(encPw);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		int result = userDAO.saveUser(user);
 
@@ -93,6 +107,12 @@ public class UserServiceImpl implements UserService {
 			return loginUser; //정상이면 User객체 return 
 		}
 		
+		
+		//암호화 처리가 되어있다면?
+		/// user.getPw().equals(loginUser.getPw())
+		/// SHA256Encryptor.encrypt( user.getPw()).equals(loginUser.getPw())
+		
+		
 		// loginUser == null -> ID가 존재하지 않는다.
 		// loginUser != null -> PW 틀리다?  -> 비밀번호 잘못입력했다
 		
@@ -104,6 +124,15 @@ public class UserServiceImpl implements UserService {
 			int 1:성공 2:실패 3:휴면 4:신고 ...
 		 */
 		
+		//비밀번호가 암호화 되어 저장되어있으면
+		//비밀번호 암호문으로 변경후 비교하도록 세팅
+		try {
+			String encPw = SHA256Encryptor.encrypt( user.getPw()); //평문 암호화
+			user.setPw(encPw); //암호화된 비밀번호로 세팅
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// 케이스 2) DB 쿼리상에서, 정보 일치여부 판단 수행
 		User loginUser = userDAO.checkUserLogin(user);

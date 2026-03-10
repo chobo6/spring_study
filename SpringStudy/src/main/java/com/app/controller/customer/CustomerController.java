@@ -105,6 +105,8 @@ public class CustomerController {
 		
 		//사용자 회원가입 -> db 저장
 		
+		//사용자정보 입력한 값 그대로 저장
+		//비밀번호가 평문으로 DB에 바로 저장 --> 비밀번호 암호화 저장 -> 서비스(Service)
 		int result = userService.saveCustomerUser(user);
 		
 		if(result > 0) { //성공
